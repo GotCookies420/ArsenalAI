@@ -134,6 +134,7 @@ end)
 
 ai_host.CharacterAdded:Connect(function(c)
 	local h = c:FindFirstChildOfClass("Humanoid")
+	local head = get_hostcharacter(true)
 	local old_hp = h.Health
 	
 	-- health changes
@@ -160,6 +161,24 @@ ai_host.CharacterAdded:Connect(function(c)
 	end)
 	
 	-- combat engagement
-	
-	
+
+	while head.Parent ~= nil and head ~= nil do
+		local ray = workspace:Raycast(head.Position, head.CFrame.LookVector * 250)
+
+		if ray ~= nil then
+			if ray.Instance ~= nil then
+				local hit = ray.Instance
+				local opponent = game.Players:GetPlayerFromCharacter(hit.Parent)
+					
+				if opponent ~= nil and not status.inCombat and status.combatHost ~= opponent then
+					status.inCombat = true
+					status.combatHost = opponent
+
+					engageCombat(opponent)
+				end
+			end
+		end
+			
+		game:GetService("Run Service").Heartbeat:Wait()
+	end
 end)
