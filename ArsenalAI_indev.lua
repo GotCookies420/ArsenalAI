@@ -170,9 +170,9 @@ ai_host.CharacterAdded:Connect(function(c)
 				local hit = ray.Instance
 				local opponent = game.Players:GetPlayerFromCharacter(hit.Parent)
 					
-				if opponent ~= nil and not status.inCombat and status.combatHost ~= opponent then
-					status.inCombat = true
-					status.combatHost = opponent
+				if opponent ~= nil and not status.in_combat and status.combat_host ~= opponent then
+					status.in_combat = true
+					status.combat_host = opponent
 
 					engageCombat(opponent)
 				end
